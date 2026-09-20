@@ -1,22 +1,42 @@
 @import "./tokens.css";
-html, body { margin: 0; background: var(--color-bg); color: var(--color-ink); font-family: var(--font-body); }
+html, body { margin: 0; background: #1a1208; color: var(--color-ink); font-family: var(--font-body); }
 a { color: var(--color-ink); }
 .top {
+  position: relative; z-index: 3;
   display: flex; justify-content: space-between; align-items: baseline;
   gap: 16px; flex-wrap: wrap;
   padding: 18px 26px;
-  border-bottom: 1px solid var(--color-line);
   font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
 }
 .top nav { display: flex; gap: 16px; flex-wrap: wrap; }
-.top nav a { text-decoration: none; color: var(--color-ink-soft); }
+.top nav a { text-decoration: none; color: rgba(234,220,192,.72); }
 .top nav a:hover, .top nav a.on { color: var(--color-ink); }
-.wrap { max-width: 760px; margin: 0 auto; padding: 36px 26px 80px; }
+.stage {
+  position: relative; min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 50% 40%, #c4a35a 0%, transparent 55%),
+    linear-gradient(180deg, #5a3d12 0%, #1a1208 72%);
+}
+.stage::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url("./field.jpg");
+  background-size: cover; background-position: center 42%;
+  filter: var(--filter-gold-lock);
+  opacity: 1;
+}
+.stage .veil {
+  position: relative; z-index: 2;
+  min-height: calc(100vh - 56px);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 26px 48px;
+  background: linear-gradient(180deg, transparent 30%, rgba(7,4,10,.82) 100%);
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 36px 26px 80px; position: relative; z-index: 2; }
 .wordmark {
-  font-family: var(--font-display); font-weight: 600; font-size: clamp(48px, 12vw, 92px);
+  font-family: var(--font-display); font-weight: 600; font-size: clamp(52px, 14vw, 104px);
   color: transparent; -webkit-text-stroke: 1.5px var(--color-ink); letter-spacing: .04em; margin: 0 0 12px;
 }
-.wordmark:hover { color: var(--color-ink); }
+.wordmark:hover { color: var(--color-ink); -webkit-text-stroke: 0; }
 .kicker { letter-spacing: .2em; text-transform: uppercase; font-size: 11px; color: var(--color-ink-soft); }
 .lead { font-size: 15px; line-height: 1.55; color: var(--color-ink-soft); max-width: 36em; }
 table { width: 100%; border-collapse: collapse; margin: 28px 0; }
@@ -31,8 +51,9 @@ pre, textarea {
   display: inline-block; text-decoration: none; cursor: pointer;
   font: 11px/1 var(--font-body); letter-spacing: .14em; text-transform: uppercase;
   padding: 12px 16px; border: 1px solid var(--color-ink);
-  background: var(--color-ink); color: var(--color-bg);
+  background: var(--color-ink); color: #1a1208;
 }
 .btn.ghost { background: transparent; color: var(--color-ink); }
 .out { margin-top: 16px; white-space: pre-wrap; border: 1px solid var(--color-line); padding: 14px; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 8px; }
+.sheet { background: var(--color-bg); }
