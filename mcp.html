@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PrestigeMCP — PrestigeSF</title>
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./tokens.css" />
+  <link rel="stylesheet" href="./components.css" />
+  <style>
+    .wrap { max-width: 760px; margin: 0 auto; padding: 28px 26px 72px; }
+    pre, textarea {
+      width: 100%; background: var(--color-panel); color: var(--color-ink);
+      border: 1px solid var(--color-line); padding: 14px;
+      font: 12px/1.5 var(--font-body); white-space: pre-wrap;
+    }
+    textarea { min-height: 160px; }
+    .kicker { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 8px; }
+    h1.wordmark { font-size: clamp(42px, 8vw, 72px); margin: 8px 0 16px; }
+    nav { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 28px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="kicker">PrestigeSF, Inc.</p>
+    <h1 class="wordmark">PrestigeMCP</h1>
+    <p>Stdio MCP proxy. Every tools/call can mint a GoldTrac leaf. ML-DSA-65. SOFTWARE. Not FIPS 140.</p>
+    <nav>
+      <a class="btn" href="#run">Run</a>
+      <a class="btn ghost" href="#leaves">Leaves</a>
+      <a class="btn ghost" href="#verify">Verify</a>
+      <a class="btn ghost" href="./index.html">GoldTrac</a>
+    </nav>
+
+    <h2>What it is</h2>
+    <p>JSON-RPC over stdio. Wraps an upstream MCP. Compresses tool schemas. Does not rewrite the tool result.</p>
+    <p>On tools/call, append one leaf to goldtrac-chain.jsonl. Same nine fields as DeadlineSF and BillRosetta.</p>
+
+    <h2 id="run">Run</h2>
+    <p>The app does not start the proxy. The proxy is still a process:</p>
+    <pre>npx tsx src/cli.ts -- &lt;upstream-mcp-command&gt;</pre>
+    <p>Disable receipts: <code>--no-goldtrac</code> or <code>PRESTIGE_GOLDTRAC=0</code>.</p>
+    <p>Claude / Cursor stdio snippet:</p>
+    <pre>{
+  "mcpServers": {
+    "prestige-mcp": {
+      "command": "npx",
+      "args": ["tsx", "src/cli.ts", "--", "node", "src/sample-server.ts"]
+    }
+  }
+}</pre>
+    <p>Seal any vertical payload:</p>
+    <pre>npx tsx src/goldtrac-cli-mint.ts --app prestige-mcp --payload event.json
+npx tsx src/goldtrac-cli-mint.ts --app deadlinesf --payload evidence.json</pre>
+
+    <h2>Status</h2>
+    <table>
+      <tr><th>alg</th><td>ML-DSA-65</td></tr>
+      <tr><th>hash</th><td>SHA-256</td></tr>
+      <tr><th>custody</th><td>SOFTWARE</td></tr>
+      <tr><th>FIPS 140-3</th><td>NOT_CLAIMED</td></tr>
+      <tr><th>owner</th><td>PrestigeSF, Inc. (Delaware C)</td></tr>
+      <tr><th>app values</th><td>prestige-mcp · deadlinesf · billrosetta · bopcart</td></tr>
+    </table>
+
+    <h2 id="leaves">Leaves</h2>
+    <p>Paste goldtrac-chain.jsonl (one JSON object per line). This panel only reads. It does not mint.</p>
+    <textarea id="chain" placeholder='{"kid":"...","alg":"ML-DSA-65",...}'></textarea>
+    <p style="margin-top:12px">
+      <button class="btn" type="button" id="sample">Load sample line</button>
+      <button class="btn ghost" type="button" id="read">Read leaves</button>
+    </p>
+    <div id="list"></div>
+
+    <h2 id="verify">Verify one leaf</h2>
+    <p>Check shape</p>
+    <div id="out">waiting</div>
+    <footer>PrestigeMCP · GoldTrac leaf · lattice only · software custody</footer>
+  </div>
+  <script>
+    const FIELDS = ["kid","alg","payload_hash","chain_root","smt_root","sig","tsa","tsa_time","app"];
+    const SAMPLE = {kid:"gt-dev-software-1",alg:"ML-DSA-65",payload_hash:"a".repeat(64),chain_root:"b".repeat(64),smt_root:"c".repeat(64),sig:"PLACEHOLDER_NOT_A_REAL_SIGNATURE",tsa:null,tsa_time:null,app:"prestige-mcp"};
+    document.getElementById("sample").onclick = () => {
+      document.getElementById("chain").value = JSON.stringify(SAMPLE);
+    };
+    document.getElementById("read").onclick = () => {
+      const raw = document.getElementById("chain").value.trim();
+      const lines = raw.split(/\n+/).filter(Boolean);
+      const list = document.getElementById("list");
+      const out = document.getElementById("out");
+      list.innerHTML = "";
+      if (!lines.length) { out.textContent = "no lines"; return; }
+      let ok = 0, bad = 0;
+      lines.forEach((line, i) => {
+        try {
+          const rec = JSON.parse(line);
+          const missing = FIELDS.filter(k => !(k in rec));
+          const row = document.createElement("div");
+          row.className = "leaf-row";
+          row.innerHTML = "<div></div><div class='meta'><div class='tag'>leaf " + (i+1) + " · " + (rec.app||"?") + "</div><div>" + (missing.length ? "missing " + missing.join(", ") : rec.kid + " · " + rec.alg) + "</div></div>";
+          list.appendChild(row);
+          missing.length ? bad++ : ok++;
+        } catch (e) { bad++; }
+      });
+      out.textContent = ok + " shaped · " + bad + " bad · read only";
+    };
+  </script>
+</body>
+</html>
