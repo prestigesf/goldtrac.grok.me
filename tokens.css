@@ -1,15 +1,14 @@
 :root {
-  --color-bg: #07040a;
-  --color-ink: #eadcc0;
-  --color-ink-soft: rgba(234, 220, 192, 0.7);
-  --color-line: rgba(234, 220, 192, 0.28);
-  --color-gold: #d4af37;
-  --color-panel: #110b14;
-  --font-display: "STIX Two Text", "Times New Roman", serif;
-  --font-body: "IBM Plex Mono", ui-monospace, monospace;
-  --space-1: 8px;
-  --space-2: 16px;
-  --space-3: 26px;
-  --leaf-size: 18px;
+  --bg: #07040a;
+  --bg-2: #0b0710;
+  --ink: #eadcc0;
+  --ink-soft: rgba(234, 220, 192, 0.72);
+  --ink-dim: rgba(234, 220, 192, 0.42);
+  --line: rgba(234, 220, 192, 0.28);
+  --gold: #d4af37;
+  --gold-hot: #f0d48a;
+  --panel: #110b14;
+  --display: "STIX Two Text", "Times New Roman", serif;
+  --body: "IBM Plex Mono", ui-monospace, monospace;
   --filter-gold-lock: brightness(1.05) contrast(1.15) saturate(1.25) sepia(0.2) hue-rotate(-8deg);
 }
