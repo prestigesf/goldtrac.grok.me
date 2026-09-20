@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoldTrac — Mint</title>
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./components.css" />
+</head>
+<body>
+  <header class="top">
+    <a href="./index.html">GoldTrac</a>
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./spec.html">Spec</a>
+      <a class="on" href="./mint.html">Mint</a>
+      <a href="./verify.html">Verify</a>
+      <a href="./spine.html">Spine</a>
+      <a href="./mcp.html">MCP</a>
+    </nav>
+  </header>
+  <div class="wrap">
+    <p class="kicker">prestige-mcp</p>
+    <h1 class="wordmark">Mint</h1>
+    <p class="lead">event → live kid → SHA-256 → SMT → chain tip → ML-DSA-65 → one JSONL line. --spine prints only the nine fields.</p>
+    <pre>cd prestige-mcp
+npx tsx src/goldtrac-cli-mint.ts --demo --spine
+npx tsx src/goldtrac-cli-mint.ts --app deadlinesf --payload evidence.json --spine
+npx tsx src/cli.ts verify-chain data/goldtrac-chain.jsonl</pre>
+    <p class="lead">Deadline wrap, then the same mint:</p>
+    <pre>python3 seal_goldtrac.py evidence/file.json --mint /path/to/prestige-mcp</pre>
+    <p class="lead">An envelope with sig null is not a leaf. Off switch on the proxy: --no-goldtrac or PRESTIGE_GOLDTRAC=0.</p>
+  </div>
+</body>
+</html>

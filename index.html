@@ -5,35 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GoldTrac — PrestigeSF</title>
   <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./tokens.css" />
   <link rel="stylesheet" href="./components.css" />
 </head>
 <body>
-  <header>
-    <span>GoldTrac</span>
-    <span>PrestigeSF, Inc.</span>
+  <header class="top">
+    <a href="./index.html">GoldTrac</a>
+    <nav>
+      <a class="on" href="./index.html">Home</a>
+      <a href="./spec.html">Spec</a>
+      <a href="./mint.html">Mint</a>
+      <a href="./verify.html">Verify</a>
+      <a href="./spine.html">Spine</a>
+      <a href="./mcp.html">MCP</a>
+    </nav>
   </header>
-  <div class="stage">
-    <p class="kicker">PrestigeSF, Inc.</p>
+  <div class="wrap">
+    <p class="kicker">PrestigeSF, Inc. · goldtrac.org</p>
     <h1 class="wordmark">GoldTrac</h1>
-    <div class="facts">
-      <p>SHA-256 payload_hash. smt_root. chain_root. ML-DSA-65 sig.</p>
-      <p>Nine fields. Four apps. Not ECDSA-P256. Not a FIPS 140-3 module. Custody: SOFTWARE.</p>
+    <p class="lead">A leaf is one minted event. SHA-256 of the payload. Sparse Merkle tip. Chain tip. ML-DSA-65 signature. Same nine fields on every product.</p>
+    <div class="actions">
+      <a class="btn" href="./verify.html">Verify a leaf</a>
+      <a class="btn ghost" href="./mint.html">Mint command</a>
     </div>
-  </div>
-  <div class="sheet">
-    <div class="wrap">
-      <table>
-        <tr><th>kid</th><td>Published key id</td></tr>
-        <tr><th>alg</th><td>ML-DSA-65</td></tr>
-        <tr><th>payload_hash</th><td>SHA-256 of the event</td></tr>
-        <tr><th>chain_root</th><td>Tip after this leaf</td></tr>
-        <tr><th>smt_root</th><td>Merkle root after this leaf</td></tr>
-        <tr><th>sig</th><td>ML-DSA-65 signature</td></tr>
-        <tr><th>app</th><td>prestige-mcp · deadlinesf · billrosetta · bopcart</td></tr>
-      </table>
-      <p style="margin-top:28px;font-size:11px;letter-spacing:.08em;text-transform:uppercase">gold-lock<br />filter: brightness(1.05) contrast(1.15) saturate(1.25) sepia(0.2) hue-rotate(-8deg);</p>
-    </div>
+    <table>
+      <tr><th>kid</th><td>Published key id</td></tr>
+      <tr><th>alg</th><td>ML-DSA-65 (FIPS 204)</td></tr>
+      <tr><th>payload_hash</th><td>SHA-256 of the event</td></tr>
+      <tr><th>chain_root</th><td>Tip after this leaf</td></tr>
+      <tr><th>smt_root</th><td>Merkle root after this leaf</td></tr>
+      <tr><th>sig</th><td>ML-DSA-65 signature</td></tr>
+      <tr><th>tsa / tsa_time</th><td>null until a TSA is wired</td></tr>
+      <tr><th>app</th><td>prestige-mcp · deadlinesf · billrosetta · bopcart</td></tr>
+    </table>
+    <p class="lead">Not ECDSA-P256. Not a FIPS 140-3 module. Custody: SOFTWARE. Owner: PrestigeSF, Inc. (Delaware C).</p>
   </div>
 </body>
 </html>

@@ -4,21 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GoldTrac — Verify</title>
-  <link rel="stylesheet" href="./tokens.css" />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./components.css" />
-  <style>
-    .wrap{max-width:760px;margin:0 auto;padding:28px 26px 72px}
-    textarea{width:100%;min-height:220px;padding:14px;background:var(--color-panel);color:var(--color-ink);border:1px solid var(--color-line);font:12px/1.5 var(--font-body)}
-    .out{margin-top:16px;white-space:pre-wrap;border:1px solid var(--color-line);padding:14px}
-  </style>
 </head>
 <body>
+  <header class="top">
+    <a href="./index.html">GoldTrac</a>
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./spec.html">Spec</a>
+      <a href="./mint.html">Mint</a>
+      <a class="on" href="./verify.html">Verify</a>
+      <a href="./spine.html">Spine</a>
+      <a href="./mcp.html">MCP</a>
+    </nav>
+  </header>
   <div class="wrap">
-    <p style="letter-spacing:.2em;text-transform:uppercase;font-size:11px"><a href="./index.html">GoldTrac</a></p>
+    <p class="kicker">Public act</p>
     <h1 class="wordmark">Verify</h1>
-    <p>Paste a receipt. Shape, alg, app, hash width. Browser does not yet verify ML-DSA-65.</p>
+    <p class="lead">Paste a receipt. This page checks shape, alg, app, and 64-hex hashes. It does not run ML-DSA-65 in the browser. That check is verify-chain in prestige-mcp.</p>
     <textarea id="raw" placeholder='{"kid":"...","alg":"ML-DSA-65",...}'></textarea>
-    <p style="margin:14px 0"><button class="btn" type="button" id="go">Check</button></p>
+    <p class="actions"><button class="btn" type="button" id="go">Check</button></p>
     <div class="out" id="out">waiting</div>
   </div>
   <script>
@@ -33,7 +39,12 @@
       if(missing.length){ok=false;lines.push("missing "+missing.join(", "));} else lines.push("nine fields");
       if(rec.alg!=="ML-DSA-65"){ok=false;lines.push("alg must be ML-DSA-65");} else lines.push("alg ML-DSA-65");
       if(!APPS.includes(rec.app)){ok=false;lines.push("app not in the four");} else lines.push("app "+rec.app);
-      ["payload_hash","chain_root","smt_root"].forEach(h=>{if(!HEX.test(rec[h]||"")){ok=false;lines.push(h+" not 64 hex");}else lines.push(h+" shape ok");});
+      ["payload_hash","chain_root","smt_root"].forEach(h=>{
+        const v=String(rec[h]||"").replace(/^0x/i,"");
+        if(!HEX.test(v)){ok=false;lines.push(h+" not 64 hex");} else lines.push(h+" shape ok");
+      });
+      if(!rec.sig){ok=false;lines.push("sig empty — not a leaf");} else lines.push("sig present");
+      lines.push("browser: schema only");
       lines.push("FIPS 140-3 module: not claimed");
       out.textContent=(ok?"PASS (schema)\n":"FAIL\n")+lines.join("\n");
     };
