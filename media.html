@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoldTrac — Media</title>
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./components.css" />
+  <style>
+    .frame { border: 1px solid var(--color-line); margin: 22px 0; background: #0a0705; }
+    .frame img, .frame video { display: block; width: 100%; height: auto; }
+    .miss { padding: 28px; color: var(--color-ink-soft); font-size: 13px; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a href="./index.html">GoldTrac</a>
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./spec.html">Spec</a>
+      <a href="./mint.html">Mint</a>
+      <a href="./verify.html">Verify</a>
+      <a href="./spine.html">Spine</a>
+      <a class="on" href="./media.html">Media</a>
+      <a href="./mcp.html">MCP</a>
+    </nav>
+  </header>
+  <div class="wrap">
+    <p class="kicker">goldtrac.org</p>
+    <h1 class="wordmark">Media</h1>
+    <p class="lead">Architecture only. Gold hex poster. Motion diagram. No tractors. No people. No plain text charts.</p>
+
+    <p class="kicker">Spine poster</p>
+    <div class="frame">
+      <img src="./spine-poster.jpg" alt="GoldTrac Spine 2026" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'miss',textContent:'Drop spine-poster.jpg in the repo root (gold hex, four cubes, lock + leaf).'}))" />
+    </div>
+
+    <p class="kicker">Motion</p>
+    <div class="frame">
+      <video controls playsinline src="./spine-motion.mp4" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'miss',textContent:'Drop spine-motion.mp4 in the repo root (architecture motion, gold or locked diagram style).'}))"></video>
+    </div>
+  </div>
+</body>
+</html>
