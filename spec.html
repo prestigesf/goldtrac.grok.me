@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoldTrac — Spec</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./tokens.css" />
+  <link rel="stylesheet" href="./components.css" />
+  <style>.wrap{max-width:760px;margin:0 auto;padding:28px 26px 72px}</style>
+</head>
+<body>
+  <div class="wrap">
+    <p style="letter-spacing:.2em;text-transform:uppercase;font-size:11px"><a href="./index.html">GoldTrac</a></p>
+    <h1 class="wordmark">Spec</h1>
+    <h2>Mint</h2>
+    <p>1. Check kid is live.<br />2. SHA-256 the payload → payload_hash.<br />3. Append SMT → smt_root.<br />4. Bind last tip → chain_root.<br />5. ML-DSA-65 sign → sig.<br />6. Write one JSONL line.</p>
+    <h2>Fields</h2>
+    <p>kid alg payload_hash chain_root smt_root sig tsa tsa_time app</p>
+    <p>app: prestige-mcp · deadlinesf · billrosetta · bopcart</p>
+    <p><a href="./MINT.md">MINT.md</a> · <a href="./schema.json">schema.json</a></p>
+    <footer>lattice only · software custody</footer>
+  </div>
+</body>
+</html>

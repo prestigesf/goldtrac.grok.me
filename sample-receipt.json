@@ -1,0 +1,11 @@
+{
+  "kid": "gt-dev-software-1",
+  "alg": "ML-DSA-65",
+  "payload_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "chain_root": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "smt_root": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "sig": "PLACEHOLDER_NOT_A_REAL_SIGNATURE",
+  "tsa": null,
+  "tsa_time": null,
+  "app": "prestige-mcp"
+}
