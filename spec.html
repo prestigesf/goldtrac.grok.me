@@ -3,23 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GoldTrac — Spec</title>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./tokens.css" />
+  <title>GoldTrac — Schema</title>
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./components.css" />
-  <style>.wrap{max-width:760px;margin:0 auto;padding:28px 26px 72px}</style>
 </head>
 <body>
+  <header class="top">
+    <a class="brand" href="./index.html"><span>PrestigeSF</span><span class="dot">·</span><b>GoldTrac</b></a>
+    <nav class="desk-nav">
+      <a href="./index.html">Home</a><a href="./verify.html">Verify</a><a class="on" href="./spec.html">Schema</a><a href="./leaf.html">Leaf</a><a href="./mint.html">Mint</a><a href="./spine.html">Spine</a><a href="./media.html">Media</a>
+    </nav>
+    <button class="latch" id="latch" type="button" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="vein v1" d="M6 8 C11 7 13 7 18 8" /><path class="vein v2" d="M12 4 C12 10 12 15 12 20" /><path class="vein v3" d="M6 16 C11 17 13 17 18 16" /></svg>
+    </button>
+  </header>
   <div class="wrap">
-    <p style="letter-spacing:.2em;text-transform:uppercase;font-size:11px"><a href="./index.html">GoldTrac</a></p>
-    <h1 class="wordmark">Spec</h1>
+    <p class="kicker">GoldTracReceiptV1</p>
+    <h1 class="wordmark">Schema</h1>
+    <p class="lead">One receipt shape. Same nine fields on every PrestigeSF product that can stand.</p>
     <h2>Mint</h2>
-    <p>1. Check kid is live.<br />2. SHA-256 the payload → payload_hash.<br />3. Append SMT → smt_root.<br />4. Bind last tip → chain_root.<br />5. ML-DSA-65 sign → sig.<br />6. Write one JSONL line.</p>
-    <h2>Fields</h2>
-    <p>kid alg payload_hash chain_root smt_root sig tsa tsa_time app</p>
-    <p>app: prestige-mcp · deadlinesf · billrosetta · bopcart</p>
-    <p><a href="./MINT.md">MINT.md</a> · <a href="./schema.json">schema.json</a></p>
-    <footer>lattice only · software custody</footer>
+    <p class="lead">1. Check kid is live.<br />2. SHA-256 the payload → payload_hash.<br />3. Append SMT → smt_root.<br />4. Bind last tip → chain_root.<br />5. ML-DSA-65 sign → sig.<br />6. Write one JSONL line.</p>
+    <p class="lead">app: prestige-mcp · deadlinesf · billrosetta · bopcart</p>
+    <p class="row"><a class="btn" href="./schema.json">schema.json</a><a class="btn ghost" href="./MINT.md">MINT.md</a></p>
+    <footer class="fine">lattice only · software custody</footer>
   </div>
+  <div class="leaf-panel" id="leaf-panel" aria-hidden="true">
+    <div class="mist" data-close></div>
+    <div class="leaf-sheet">
+      <ul class="veins"><li>kid</li><li>alg</li><li>payload_hash</li><li>chain_root</li><li>smt_root</li><li>sig</li><li>tsa</li><li>tsa_time</li><li>app</li></ul>
+      <nav>
+        <a href="./index.html">Home</a><a href="./verify.html">Verify</a><a class="on" href="./spec.html">Schema</a><a href="./leaf.html">Leaf</a><a href="./mint.html">Mint</a><a href="./spine.html">Spine</a><a href="./media.html">Media</a>
+      </nav>
+      <footer>Nine veins. One leaf.</footer>
+    </div>
+  </div>
+  <canvas id="foil"></canvas>
+  <script src="./foil.js"></script>
 </body>
 </html>
