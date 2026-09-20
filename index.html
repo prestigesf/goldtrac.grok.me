@@ -1,104 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GoldTrac</title>
-  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./components.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GoldTrac</title>
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./components.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="shade"></div>
-    <header class="top">
-      <a class="brand" href="./index.html">
-        <span>PrestigeSF</span><span class="dot">·</span><b>GoldTrac</b>
-      </a>
-      <nav class="desk-nav">
-        <a class="on" href="./index.html">Home</a>
-        <a href="./verify.html">Verify</a>
-        <a href="./spec.html">Schema</a>
-        <a href="./leaf.html">Leaf</a>
-        <a href="./mint.html">Mint</a>
-        <a href="./spine.html">Spine</a>
-        <a href="./media.html">Media</a>
-      </nav>
-      <button class="latch" id="latch" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="leaf-panel">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path class="vein v1" d="M6 8 C11 7 13 7 18 8" />
-          <path class="vein v2" d="M12 4 C12 10 12 15 12 20" />
-          <path class="vein v3" d="M6 16 C11 17 13 17 18 16" />
-        </svg>
-      </button>
-    </header>
-    <div class="stage">
-      <p class="kicker">PrestigeSF, Inc.</p>
-      <h1 class="word">GoldTrac</h1>
-      <div class="rule"></div>
-      <div class="facts">
-        <p>SHA-256 payload_hash. smt_root. chain_root. ML-DSA-65 sig.</p>
-        <p>Nine fields. Four apps. Not ECDSA-P256. Not a FIPS 140-3 module. Custody: SOFTWARE.</p>
-      </div>
-      <div class="row">
-        <a class="btn" href="./verify.html">Verify</a>
-        <a class="btn ghost" href="./spec.html">Schema</a>
-      </div>
+<div class="page">
+  <div class="shade"></div>
+  <header class="top">
+    <a class="brand" href="./index.html"><span>PrestigeSF</span><span class="dot">·</span><b>GoldTrac</b></a>
+    <nav class="desk-nav">
+      <a class="on" href="./index.html">Home</a>
+      <a href="./verify.html">Verify</a>
+      <a href="./spec.html">Schema</a>
+      <a href="./leaf.html">Leaf</a>
+      <a href="./mint.html">Mint</a>
+      <a href="./spine.html">Spine</a>
+    </nav>
+    <button class="latch" id="latch" type="button" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path class="vein v1" d="M6 8 C11 7 13 7 18 8" />
+        <path class="vein v2" d="M12 4 C12 10 12 15 12 20" />
+        <path class="vein v3" d="M6 16 C11 17 13 17 18 16" />
+      </svg>
+    </button>
+  </header>
+  <div class="stage">
+    <p class="kicker">PrestigeSF, Inc.</p>
+    <h1 class="word">GoldTrac</h1>
+    <div class="rule"></div>
+    <div class="facts">
+      <p>SHA-256 payload_hash. smt_root. chain_root. ML-DSA-65 sig.</p>
+      <p>Nine fields. Four apps. Not ECDSA-P256. Not a FIPS 140-3 module. Custody: SOFTWARE.</p>
+    </div>
+    <div class="row">
+      <a class="btn" href="./verify.html">Verify</a>
+      <a class="btn ghost" href="./spec.html">Schema</a>
     </div>
   </div>
-  <div class="sheet">
-    <div class="wrap">
-      <h2>Receipt fields</h2>
-      <table>
-        <tr><th>kid</th><td>Published key id</td></tr>
-        <tr><th>alg</th><td>ML-DSA-65</td></tr>
-        <tr><th>payload_hash</th><td>SHA-256 of the event · 64 hex</td></tr>
-        <tr><th>chain_root</th><td>Tip after this leaf</td></tr>
-        <tr><th>smt_root</th><td>Merkle root after this leaf</td></tr>
-        <tr><th>sig</th><td>ML-DSA-65 signature</td></tr>
-        <tr><th>tsa</th><td>Optional timestamp authority</td></tr>
-        <tr><th>tsa_time</th><td>Optional timestamp</td></tr>
-        <tr><th>app</th><td>prestige-mcp · deadlinesf · billrosetta · bopcart</td></tr>
-      </table>
-      <h2 style="margin-top:48px">Three faces. One mint.</h2>
-      <div class="faces">
-        <div class="face">
-          <p class="tag">this site</p>
-          <h3>GoldTrac</h3>
-          <p>Public face, schema, witness, verify. The leaf is the receipt. Mint lives in prestige-mcp.</p>
-        </div>
-        <div class="face">
-          <p class="tag">product</p>
-          <h3>DeadlineSF</h3>
-          <p>deadlinesf.net. California AI compliance. Same nine fields. --app deadlinesf. Does not mint itself.</p>
-        </div>
-        <div class="face">
-          <p class="tag">control plane</p>
-          <h3>QuantumRain</h3>
-          <p>quantumrain.grok.me. PACK IN → ENGINE → DELTA. Rain stays there. Intercept edr_* is a demo fixture, not a leaf.</p>
-        </div>
-      </div>
-      <footer class="fine">Lattice only · software custody · FIPS 140-3 not claimed</footer>
-    </div>
+</div>
+<div class="sheet">
+  <div class="wrap">
+    <h2>Receipt fields</h2>
+    <table>
+      <tr><th>kid</th><td>Published key id</td></tr>
+      <tr><th>alg</th><td>ML-DSA-65</td></tr>
+      <tr><th>payload_hash</th><td>SHA-256 of the event · 64 hex</td></tr>
+      <tr><th>chain_root</th><td>Tip after this leaf</td></tr>
+      <tr><th>smt_root</th><td>Merkle root after this leaf</td></tr>
+      <tr><th>sig</th><td>ML-DSA-65 signature</td></tr>
+      <tr><th>tsa</th><td>Optional timestamp authority</td></tr>
+      <tr><th>tsa_time</th><td>Optional timestamp</td></tr>
+      <tr><th>app</th><td>prestige-mcp · deadlinesf · billrosetta · bopcart</td></tr>
+    </table>
   </div>
-  <div class="leaf-panel" id="leaf-panel" aria-hidden="true">
-    <div class="mist" data-close></div>
-    <div class="leaf-sheet">
-      <ul class="veins">
-        <li>kid</li><li>alg</li><li>payload_hash</li><li>chain_root</li><li>smt_root</li><li>sig</li><li>tsa</li><li>tsa_time</li><li>app</li>
-      </ul>
-      <nav>
-        <a class="on" href="./index.html">Home</a>
-        <a href="./verify.html">Verify</a>
-        <a href="./spec.html">Schema</a>
-        <a href="./leaf.html">Leaf</a>
-        <a href="./mint.html">Mint</a>
-        <a href="./spine.html">Spine</a>
-        <a href="./media.html">Media</a>
-      </nav>
-      <footer>Nine veins. One leaf.</footer>
-    </div>
+</div>
+<div class="leaf-panel" id="leaf-panel" aria-hidden="true">
+  <div class="mist" data-close></div>
+  <div class="leaf-sheet">
+    <ul class="veins"><li>kid</li><li>alg</li><li>payload_hash</li><li>chain_root</li><li>smt_root</li><li>sig</li><li>tsa</li><li>tsa_time</li><li>app</li></ul>
+    <nav>
+      <a class="on" href="./index.html">Home</a>
+      <a href="./verify.html">Verify</a>
+      <a href="./spec.html">Schema</a>
+      <a href="./leaf.html">Leaf</a>
+      <a href="./mint.html">Mint</a>
+      <a href="./spine.html">Spine</a>
+    </nav>
+    <footer>Nine veins. One leaf.</footer>
   </div>
-  <canvas id="foil"></canvas>
-  <script src="./foil.js"></script>
+</div>
+<canvas id="foil"></canvas>
+<script src="./foil.js"></script>
 </body>
 </html>
