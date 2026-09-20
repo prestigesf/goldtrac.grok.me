@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prestigesf.example/goldtrac/schema.json",
+  "title": "GoldTracReceiptV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kid", "alg", "payload_hash", "chain_root", "smt_root", "sig", "tsa", "tsa_time", "app"],
+  "properties": {
+    "kid": { "type": "string", "minLength": 1 },
+    "alg": { "const": "ML-DSA-65" },
+    "payload_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "chain_root": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "smt_root": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sig": { "type": "string", "minLength": 1 },
+    "tsa": { "type": ["string", "null"] },
+    "tsa_time": { "type": ["string", "null"] },
+    "app": { "enum": ["prestige-mcp", "deadlinesf", "billrosetta", "bopcart"] }
+  }
+}
