@@ -1,0 +1,27 @@
+/* Second page — Leaf. Landing stays dust. This page is stone + veins. */
+.leaf-hero { min-height: 100vh; position: relative; overflow: hidden; }
+.leaf-hero::before { content: ""; position: absolute; inset: 0; background-image: url("./stone.jpg"); background-size: cover; background-position: center; filter: var(--filter-gold-lock); }
+.leaf-stage-copy { min-height: calc(100vh - 80px); justify-content: flex-end; padding: 0 26px 56px; max-width: 720px; }
+.deep { padding-bottom: 12px; }
+.acts { max-width: 1080px; margin: 0 auto; padding: 8px 26px 72px; display: grid; gap: 56px; }
+.act { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: center; }
+@media (min-width: 860px) {
+  .act { grid-template-columns: 1.15fr .85fr; gap: 36px; }
+  .act.flip { grid-template-columns: .85fr 1.15fr; }
+  .act.flip figure { order: 2; }
+}
+.act figure { margin: 0; border: 1px solid var(--line); background: #050308; overflow: hidden; }
+.act img { display: block; width: 100%; height: auto; filter: var(--filter-gold-lock); }
+.act-copy h3 { font-family: var(--display); font-size: clamp(28px, 5vw, 42px); font-weight: 600; color: transparent; -webkit-text-stroke: 1px var(--ink); margin: 6px 0 12px; }
+.act .tag { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+.field-list { list-style: none; padding: 12px 0 0; margin: 0; }
+.field-list li { padding: 7px 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 12px; }
+.field-list b { display: inline-block; min-width: 8.2em; color: var(--ink); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; font-weight: 500; }
+.vein-stage { position: relative; }
+.vein-pins { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
+.vein-pins li { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); }
+.vein-pins b { display: block; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--bg); background: var(--gold); padding: 3px 6px; white-space: nowrap; }
+.sun-band { position: relative; min-height: 70vh; display: grid; place-items: end start; overflow: hidden; }
+.sun-band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sun-copy { position: relative; z-index: 1; padding: 40px 26px 48px; max-width: 560px; }
+.print-frame { background: #071018; }
