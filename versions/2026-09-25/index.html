@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GoldTrac — Cryptographic Evidence & Verifiable Receipts</title>
+    <meta name="description" content="Every event leaves a receipt you can prove. SHA-256, a sparse Merkle tree, an append-only hash chain, ML-DSA-65." />
+    <link rel="canonical" href="https://goldtrac.org/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <a href="#top">PrestigeSF · GoldTrac</a>
+      <nav>
+        <a href="#pipeline">Proof</a>
+        <a href="#receipt">Receipt</a>
+        <a href="#apps">Integrations</a>
+        <a href="#custody">Custody</a>
+        <a href="verify.html">Verify</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top" role="img" aria-label="GoldTrac"></section>
+
+    <section class="wrap">
+      <p class="kicker">SHA-256 · ML-DSA-65 · Cryptographic verification</p>
+      <h1>Every event leaves a receipt you can prove.</h1>
+      <p class="lede">
+        GoldTrac hashes each payload with <code>SHA-256</code>, binds it into a Sparse Merkle tree and an append-only hash chain, then signs the leaf with <code>ML-DSA-65</code>. One JSONL line per event — verifiable by anyone, alterable by no one.
+      </p>
+      <a class="btn" href="verify.html">Verify a receipt</a>
+    </section>
+
+    <section class="wrap" id="pipeline">
+      <p class="kicker">01 — Event Processing Pipeline</p>
+      <h2>Six steps between an event and its <em>proof</em>.</h2>
+      <p class="lede">Append-only, cryptographically bound event logging. Each receipt links to the tip of the chain before it — so history cannot be rewritten without breaking every link after it.</p>
+      <div class="steps">
+        <article class="step"><p class="idx">/ 01</p><h3>Check kid is live</h3><p>The key ID (<code>kid</code>) is resolved against the live key directory before anything is signed. Revoked or unknown keys never enter the log.</p></article>
+        <article class="step"><p class="idx">/ 02</p><h3>SHA-256 the payload</h3><p>The canonical event payload is hashed with SHA-256, producing the <code>payload_hash</code> that anchors everything downstream.</p></article>
+        <article class="step"><p class="idx">/ 03</p><h3>Append into Sparse Merkle tree</h3><p>The leaf is inserted into a Sparse Merkle tree; the updated <code>smt_root</code> commits to the full set of events ever recorded.</p></article>
+        <article class="step"><p class="idx">/ 04</p><h3>Bind to last tip</h3><p>The new leaf is bound to the previous chain tip, yielding the new <code>chain_root</code> — an append-only hash chain over the entire sequence.</p></article>
+        <article class="step"><p class="idx">/ 05</p><h3>ML-DSA-65 sign the leaf</h3><p>The bound leaf is signed with ML-DSA-65, a post-quantum signature scheme — the receipt stays verifiable even against future adversaries.</p></article>
+        <article class="step"><p class="idx">/ 06</p><h3>Write one JSONL line</h3><p>The finished receipt is emitted as a single JSONL line. One line per event, one file per stream — trivial to store, ship, and audit.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap" id="motion">
+      <p class="kicker">02 — In Motion</p>
+      <h2>Watch a receipt <em>come into being</em>.</h2>
+      <p class="lede">One event, ten seconds: the key checks live, the payload hashes, the Merkle tree updates, the chain binds, the leaf signs — and one JSONL line lands in the log.</p>
+      <figure class="film">
+        <video src="assets/how-goldtrac-works.mp4" poster="assets/how-goldtrac-works-poster.jpg" preload="metadata" playsinline controls muted></video>
+        <figcaption>
+          <span>KID live → SHA-256 → SMT update → chain bind → ML-DSA-65 sign → JSONL write</span>
+          <span>0:10 · sound available</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="wrap" id="receipt">
+      <article class="paper">
+        <img class="seal" src="leaf.jpg" alt="" />
+        <p class="kicker">03 — Receipt Specification</p>
+        <h2>Nine fields. <em>Nothing</em> to trust but math.</h2>
+        <p>Every GoldTrac receipt carries exactly nine fields — the key ID, the signature, both cryptographic roots, timestamp authority information, and the application that emitted it. The full machine-readable contract lives in <a href="schema.json"><code>schema.json</code></a>.</p>
+        <div class="fields">
+          <div class="field"><span>kid · string · did</span><strong>Key identifier</strong><p>Key identifier of the signing key. Resolved for liveness at signing time.</p></div>
+          <div class="field"><span>seq · integer</span><strong>Sequence</strong><p>Monotonic sequence number of the event within its stream.</p></div>
+          <div class="field"><span>ts · string · rfc3339</span><strong>Timestamp</strong><p>Event timestamp, attested by the timestamp authority.</p></div>
+          <div class="field"><span>payload_hash · hex · sha-256</span><strong>Payload hash</strong><p>SHA-256 digest of the canonical event payload.</p></div>
+          <div class="field"><span>chain_root · hex · sha-256</span><strong>Chain root</strong><p>Tip of the append-only hash chain after binding this event.</p></div>
+          <div class="field"><span>smt_root · hex · sha-256</span><strong>Merkle root</strong><p>Sparse Merkle tree root after the leaf insertion.</p></div>
+          <div class="field"><span>sig · base64 · ml-dsa-65</span><strong>Signature</strong><p>Post-quantum signature over the bound leaf.</p></div>
+          <div class="field"><span>tsa · object</span><strong>Timestamp authority</strong><p>Issuer, serial, and attestation reference.</p></div>
+          <div class="field"><span>app · string</span><strong>Application</strong><p>Application that emitted the event, e.g. an integration below.</p></div>
+        </div>
+        <pre>{
+  "kid": "did:goldtrac:demo:abc123",
+  "seq": 1428,
+  "ts": "2026-09-26T00:23:03Z",
+  "payload_hash": "de4e5cb4…8938d",
+  "chain_root": "42ebdd0a…c1ea7",
+  "smt_root": "dbd7af89…47429",
+  "sig": "MEYCIQ…/k9LsQ==",
+  "tsa": { "issuer": "goldtrac-tsa-1", "serial": "0x4f2a" },
+  "app": "prestigemcp"
+}</pre>
+      </article>
+    </section>
+
+    <section class="wrap" id="apps">
+      <p class="kicker">04 — Integrations</p>
+      <h2>Already signing in <em>four</em> places.</h2>
+      <p class="lede">Each integration emits GoldTrac receipts for the events that matter most in its domain — same pipeline, same nine fields, same guarantees.</p>
+      <div class="grid4" style="margin-top:1.5rem">
+        <article class="card"><p class="idx">MCP Tooling</p><h3>PrestigeMCP</h3><p>Receipts for tool invocations and capability grants across MCP servers.</p></article>
+        <article class="card"><p class="idx">Deadlines</p><h3>DeadlineSF</h3><p>Tamper-evident proof of when deadlines were set, met, or missed.</p></article>
+        <article class="card"><p class="idx">Billing</p><h3>BillRosetta</h3><p>Every invoice translation and rate application, chained and signed.</p></article>
+        <article class="card"><p class="idx">Commerce</p><h3>BopCart</h3><p>Order events with receipts your customers can independently verify.</p></article>
+      </div>
+    </section>
+
+    <section class="wrap" id="custody">
+      <p class="kicker">05 — Zero-Trust MPC Layer</p>
+      <h2>The signing key <em>never exists</em> in one place.</h2>
+      <p class="lede">GoldTrac's key custody is a zero-trust multi-party computation layer: every signing key is split into fragments held by independent nodes. Credentials and transaction authorizations are computed jointly — the key is never assembled in one vulnerable spot, so no single node, host, or operator can sign alone.</p>
+      <div class="triptych">
+        <figure>
+          <video src="assets/mpc-fragments.mp4" poster="assets/mpc-fragments-poster.jpg" preload="metadata" playsinline autoplay muted loop></video>
+          <figcaption><span>Key fragments</span><span>distributed</span></figcaption>
+        </figure>
+        <figure>
+          <video src="assets/mpc-network.mp4" poster="assets/mpc-network-poster.jpg" preload="metadata" playsinline autoplay muted loop></video>
+          <figcaption><span>Authorization</span><span>without assembly</span></figcaption>
+        </figure>
+        <figure>
+          <video src="assets/mpc-joint-signing.mp4" poster="assets/mpc-joint-signing-poster.jpg" preload="metadata" playsinline autoplay muted loop></video>
+          <figcaption><span>Joint signing</span><span>no single point</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap" id="honest">
+      <article class="paper">
+        <p class="kicker">Honest by design</p>
+        <h2>Software custody, stated plainly.</h2>
+        <p>GoldTrac keys live in <strong>software custody</strong> — not in a FIPS 140-3-validated hardware module. That is a deliberate, documented trade-off: simpler deployment and portable keys, in exchange for a different key-protection boundary.</p>
+        <p>We would rather you know exactly where the boundary is than hide it behind compliance vocabulary. If your threat model requires validated hardware custody, GoldTrac in its current form is not the right fit.</p>
+        <ul class="list">
+          <li><b>Custody</b> — Software-held signing keys, split as fragments across independent MPC nodes; no HSM in the current implementation.</li>
+          <li><b>Signatures</b> — ML-DSA-65 — post-quantum, NIST-standardized.</li>
+          <li><b>Hashing</b> — SHA-256 over canonical payloads, chain, and Merkle nodes.</li>
+          <li><b>Log model</b> — Append-only JSONL; verification is fully offline-capable.</li>
+        </ul>
+      </article>
+    </section>
+    <footer>
+      <span>PrestigeSF, Inc.</span>
+      <span>GoldTrac is the evidence spine.</span>
+      <span>goldtrac.org</span>
+    </footer>
+  </body>
+</html>

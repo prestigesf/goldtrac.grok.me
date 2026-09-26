@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Verify a Receipt — GoldTrac</title>
+    <link rel="canonical" href="https://goldtrac.org/verify.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <a href="index.html">PrestigeSF · GoldTrac</a>
+      <nav><a href="index.html#receipt">Receipt</a><a href="schema.json">Schema</a></nav>
+    </header>
+    <main class="wrap" style="padding-top:6rem">
+      <p class="kicker">GoldTrac · Verify</p>
+      <h1>Paste a receipt. <em>Trust nothing.</em></h1>
+      <p class="lede">Verification runs entirely in this page — your receipts never leave the browser. The demo below checks the nine-field schema, key liveness, hash-chain binding between receipts, and signature structure against <a href="schema.json"><code>schema.json</code></a>.</p>
+      <p class="kicker" style="margin-top:1.5rem">Receipts · one JSONL line per event</p>
+      <textarea id="receipts" spellcheck="false" placeholder="One JSON object per line"></textarea>
+      <div class="row">
+        <button class="btn" id="demo" type="button">Generate demo chain</button>
+        <button class="btn" id="run" type="button">Run verification</button>
+        <button class="btn ghost" id="clear" type="button">Clear</button>
+      </div>
+      <p class="kicker" id="verdict" style="margin-top:1.5rem"></p>
+      <div class="checks" id="checks"></div>
+      <article class="paper" style="margin-top:2rem">
+        <p class="kicker">Scope of this demo</p>
+        <p>Structural and chain-integrity checks run locally. Full <code>ML-DSA-65</code> signature verification requires the public key for the receipt's <code>kid</code> and is performed by the GoldTrac verifier service — this page validates everything that can be proven without it.</p>
+        <p>Demo genesis seed is <code>goldtrac-demo-stream</code>. The only live demo key is <code>did:goldtrac:demo:abc123</code>.</p>
+      </article>
+    </main>
+    <script src="verify.js"></script>
+  </body>
+</html>

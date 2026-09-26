@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://goldtrac.org/schema.json",
+  "title": "GoldTrac Receipt",
+  "description": "A single GoldTrac receipt — one JSONL line per event. Append-only, cryptographically bound, kid-liveness checked. Exactly nine fields.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kid", "seq", "ts", "payload_hash", "chain_root", "smt_root", "sig", "tsa", "app"],
+  "properties": {
+    "kid": { "type": "string", "pattern": "^did:[a-z0-9]+:[a-zA-Z0-9._:-]+$" },
+    "seq": { "type": "integer", "minimum": 0 },
+    "ts": { "type": "string", "format": "date-time" },
+    "payload_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "chain_root": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "smt_root": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "sig": { "type": "string", "contentEncoding": "base64" },
+    "tsa": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issuer", "serial"],
+      "properties": {
+        "issuer": { "type": "string" },
+        "serial": { "type": "string" }
+      }
+    },
+    "app": { "type": "string", "enum": ["prestigemcp", "deadlinesf", "billrosetta", "bopcart"] }
+  }
+}
