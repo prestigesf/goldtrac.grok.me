@@ -1,0 +1,177 @@
+:root {
+  --ink: #f4ecd8;
+  --mute: #d9c7a2;
+  --gold: #e6c56a;
+  --night: #0c0a07;
+  --serif: "Newsreader", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--night);
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+a { color: inherit; }
+
+.nav {
+  position: fixed;
+  z-index: 2;
+  inset: 0 0 auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.15rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.55);
+}
+
+.nav nav {
+  display: flex;
+  gap: 0.9rem;
+}
+
+.nav a {
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav a:hover { color: var(--gold); }
+
+.mark { font-family: var(--serif); letter-spacing: 0.08em; font-size: 1rem; text-transform: none; }
+
+.plate {
+  position: relative;
+  min-height: 100svh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.pour { background-image: url("pour.jpg"); background-position: 62% 18%; }
+.leaf { background-image: url("leaf.jpg"); background-position: center 40%; }
+.field { background-image: url("field.jpg"); background-position: center 42%; }
+
+.caption {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 9%;
+  max-width: 22rem;
+}
+
+.pour .caption { bottom: 14%; max-width: 16rem; }
+
+.leaf .caption {
+  top: 5.2rem;
+  bottom: auto;
+  max-width: 16rem;
+}
+
+.kicker {
+  margin: 0 0 0.45rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+h1, h2, .line {
+  text-shadow: 0 1px 14px rgb(0 0 0 / 0.45);
+}
+
+h1 {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.line {
+  margin: 0;
+  max-width: 18rem;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 5.5rem 1.35rem 4.5rem;
+}
+
+main h2 {
+  margin: 2.4rem 0 1rem;
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+ol, .apps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ol li, .apps li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgb(244 236 216 / 0.16);
+  font-size: 1.15rem;
+}
+
+ol span, .apps strong {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  padding-top: 0.4rem;
+}
+
+.apps li { grid-template-columns: 8.5rem 1fr; }
+
+.honest, .end {
+  color: var(--mute);
+  font-size: 1rem;
+}
+
+.end { display: flex; gap: 1.4rem; }
+
+.end a:hover, main a:hover { color: var(--gold); }
+
+@media (max-width: 720px) {
+  .nav nav { gap: 0.7rem; }
+  .apps li { grid-template-columns: 1fr; gap: 0.2rem; }
+  .apps strong { padding-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

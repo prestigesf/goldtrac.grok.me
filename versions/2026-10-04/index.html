@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GoldTrac</title>
+    <meta name="description" content="A receipt you can prove. SHA-256, a sparse Merkle tree, an append-only chain, ML-DSA-65." />
+    <link rel="canonical" href="https://goldtrac.org/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <a class="mark" href="#pour">GoldTrac</a>
+      <nav>
+        <a href="#leaf">Leaf</a>
+        <a href="#field">Field</a>
+        <a href="#proof">Proof</a>
+        <a href="../verify.html">Verify</a>
+      </nav>
+    </header>
+
+    <section class="plate pour" id="pour">
+      <div class="caption">
+        <p class="kicker">PrestigeSF</p>
+        <h1>A receipt you can prove.</h1>
+      </div>
+    </section>
+
+    <section class="plate leaf" id="leaf">
+      <div class="caption">
+        <p class="kicker">The leaf</p>
+        <p class="line">Signed with ML-DSA-65. Checked by recomputing it.</p>
+      </div>
+    </section>
+
+    <section class="plate field" id="field">
+      <div class="caption">
+        <p class="kicker">The field</p>
+        <p class="line">A sparse Merkle tree. The set of receipts, not their order.</p>
+      </div>
+    </section>
+
+    <main id="proof">
+      <p class="kicker">The proof</p>
+      <h2>Six steps. Then one line.</h2>
+      <ol>
+        <li><span>01</span> The key id is live.</li>
+        <li><span>02</span> The payload is SHA-256.</li>
+        <li><span>03</span> The leaf enters the sparse Merkle tree.</li>
+        <li><span>04</span> The chain binds to the tip before it.</li>
+        <li><span>05</span> ML-DSA-65 signs that leaf.</li>
+        <li><span>06</span> One JSONL line. Alter it and the next check says tampered.</li>
+      </ol>
+
+      <h2>Where it already signs.</h2>
+      <ul class="apps">
+        <li><strong>PrestigeMCP</strong> Tool calls.</li>
+        <li><strong>DeadlineSF</strong> Deadlines and the law packs.</li>
+        <li><strong>BillRosetta</strong> The 837, and a fixture assignment at zero.</li>
+        <li><strong>BopCart</strong> The order.</li>
+      </ul>
+
+      <p class="honest">
+        Keys are in software. FIPS 140-3 is not claimed. The photographs on this page are the ones supplied for GoldTrac. They are not a certificate.
+      </p>
+      <p class="end">
+        <a href="../verify.html">Verify a receipt</a>
+        <a href="../schema.json">schema.json</a>
+      </p>
+    </main>
+  </body>
+</html>
